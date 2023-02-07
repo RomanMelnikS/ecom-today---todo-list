@@ -1,10 +1,9 @@
 import datetime as dt
 
 from rest_framework import status
-from rest_framework.generics import (CreateAPIView, ListAPIView,
-                                     get_object_or_404)
+from rest_framework.generics import (CreateAPIView, DestroyAPIView,
+                                     ListAPIView, get_object_or_404)
 from rest_framework.response import Response
-from rest_framework.views import APIView
 
 from records.models import Record
 from records.serializers import RecordCreateSerializer, RecordSerializer
@@ -20,8 +19,7 @@ class RecordCreateView(CreateAPIView):
     serializer_class = RecordCreateSerializer
 
 
-class RecordDetailView(APIView):
-
+class RecordDetailView(ListAPIView):
     def get(self, request):
         uuid = self.request.query_params.get('uuid')
         if uuid is not None:
@@ -37,9 +35,9 @@ class RecordDetailView(APIView):
         )
 
 
-class RecordDeleteView(APIView):
+class RecordDeleteView(DestroyAPIView):
 
-    def get(self, request):
+    def delete(self, request):
         uuid = self.request.query_params.get('uuid')
         if uuid is not None:
             record = get_object_or_404(Record, uuid=uuid)
@@ -53,7 +51,7 @@ class RecordDeleteView(APIView):
         )
 
 
-class FilteredRecordsView(APIView):
+class FilteredRecordsView(ListAPIView):
 
     def get(self, request):
         start = self.request.query_params.get('start')

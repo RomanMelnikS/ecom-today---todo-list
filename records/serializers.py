@@ -23,3 +23,10 @@ class RecordCreateSerializer(serializers.ModelSerializer):
         fields = (
             'body',
         )
+
+    def to_representation(self, instance):
+        serializer = RecordSerializer(
+            instance,
+            context=self.context
+        )
+        return serializer.data

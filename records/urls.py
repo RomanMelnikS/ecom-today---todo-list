@@ -1,8 +1,7 @@
 from django.urls import path
 
 from records.views import (FilteredRecordsView, RecordCreateView,
-                           RecordDetailView, RecordDeleteView, RecordsAllView)
-
+                           RecordDeleteView, RecordDetailView, RecordsAllView)
 
 urlpatterns = [
     path(
@@ -16,17 +15,17 @@ urlpatterns = [
         name='record_create'
     ),
     path(
-        'record/get/',
+        'record/get',
         RecordDetailView.as_view(),
         name='record_detail'
     ),
     path(
-        'records/list/',
+        'records/list',
         FilteredRecordsView.as_view(),
         name='filtered_records'
     ),
     path(
-        'record/delete/',
+        'record/delete',
         RecordDeleteView.as_view(),
         name='record_delete'
     ),
